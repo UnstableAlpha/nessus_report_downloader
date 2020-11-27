@@ -28,7 +28,7 @@ from datetime import datetime
 try:
     from prettytable import PrettyTable
 except ImportError:
-    print "[-] Unable to load PrettyTable library, will print data in generic format"
+    print("[-] Unable to load PrettyTable library, will print data in generic format")
     HAS_PRETTYTABLE = False
 else:
     HAS_PRETTYTABLE = True
@@ -44,7 +44,7 @@ def sendGetRequest(url, headers):
         r = requests.get(url, verify=False, headers=headers)
         return r
     except requests.exceptions.ConnectionError:
-        print "[-] Failed to establish connection"
+        print("[-] Failed to establish connection")
         exit(-1)
 
 
@@ -54,7 +54,7 @@ def sendPostRequest(url, json_data={}, headers={}):
         r = requests.post(url, verify=False, headers=headers, json=json_data)
         return r
     except requests.exceptions.ConnectionError:
-        print "[-] Failed to establish connection"
+        print("[-] Failed to establish connection")
         exit(-1)
 
 # Send HTTP DELETE request
@@ -63,17 +63,17 @@ def sendDeleteRequest(url, json_data={}, headers={}):
         r = requests.delete(url, verify=False, headers=headers, json=json_data)
         return r
     except requests.exceptions.ConnectionError:
-        print "[-] Failed to establish connection"
+        print("[-] Failed to establish connection")
         exit(-1)
 
 # Print message on stdout
 def printMessage(msg, flag=1):
     if flag == 1:
-        print "[+] " + msg
+        print("[+] " + msg)
     elif flag == 0:
-        print "[-] " + msg
+        print("[-] " + msg)
     elif flag == 2:
-        print "[*] " + msg
+        print("[*] " + msg)
     else:
         print msg
 
@@ -113,13 +113,13 @@ def printScanData(scan_data):
         printTable(scan_data["scans"], ["id", "name", "folder_id", "status", "creation_date", "last_modification_date"])
     else:
         # print scan header
-        print '\t %-10s  %-20s  %-20s  %-40s %-20s %-20s'  %("Scan Id", "Folder Name (id)", "Scan status","Scan Name","creation_date", "last_modification_date")
-        print '\t %-10s  %-20s  %-20s  %-40s %-20s %-20s'  %("-------", "---------------", "------------", "-----------------","-------------------", "--------------------")
+        print('\t %-10s  %-20s  %-20s  %-40s %-20s %-20s'  %("Scan Id", "Folder Name (id)", "Scan status","Scan Name","creation_date", "last_modification_date"))
+        print( '\t %-10s  %-20s  %-20s  %-40s %-20s %-20s'  %("-------", "---------------", "------------", "-----------------","-------------------", "--------------------"))
         for scan in scan_data["scans"]:
-            print '\t %-10s  %-20s  %-20s  %-40s %-20s %-20s' %(str(scan["id"]),folder_info[scan["folder_id"]] + ' (' + str(
-                scan["folder_id"]) + ') ', scan["status"], scan["name"],datetime.fromtimestamp(int(scan["creation_date"])).strftime('%Y-%m-%d %H:%M:%S'),datetime.fromtimestamp(int(scan["last_modification_date"])).strftime('%Y-%m-%d %H:%M:%S'))
+            print('\t %-10s  %-20s  %-20s  %-40s %-20s %-20s' %(str(scan["id"]),folder_info[scan["folder_id"]] + ' (' + str(
+                scan["folder_id"]) + ') ', scan["status"], scan["name"],datetime.fromtimestamp(int(scan["creation_date"])).strftime('%Y-%m-%d %H:%M:%S'),datetime.fromtimestamp(int(scan["last_modification_date"])).strftime('%Y-%m-%d %H:%M:%S')))
 
-        print '\n'
+        print('\n')
 
 # Verify user specified folder Id
 def verifyScanId(scan_data, ui_scan_id):
